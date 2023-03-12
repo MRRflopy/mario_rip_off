@@ -44,6 +44,9 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+	
+})
+mp.onButtonEvent(mp.MultiplayerButton.A, ControllerButtonEvent.Pressed, function (player2) {
     if (fire_power == 1) {
         if (facing_right == 1) {
             projectile = sprites.createProjectileFromSprite(img`
@@ -208,6 +211,9 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile10`, function (sprite, 
             `)
     }
 })
+mp.onControllerEvent(ControllerEvent.Connected, function (player2) {
+	
+})
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
     sprites.destroyAllSpritesOfKind(SpriteKind.Enemy)
     info.changeScoreBy(1)
@@ -241,6 +247,42 @@ let time_to_beat_level_1 = 0
 let monke: Sprite = null
 let mario: Sprite = null
 let LifeReducedAtPlusOneSecond = 0
+mp.setPlayerSprite(mp.playerSelector(mp.PlayerNumber.One), sprites.create(img`
+    . . . . 2 2 2 2 2 . . . . . . . 
+    . . . 2 2 2 2 2 2 2 2 2 . . . . 
+    . . . f f f d d f d . . . . . . 
+    . . f d f d d d f d d d . . . . 
+    . . f d f f d d d f d d d . . . 
+    . . f f d d d d f f f f . . . . 
+    . . . . d d d d d d d . . . . . 
+    . . . 8 8 2 8 8 8 . . . . . . . 
+    . . 8 8 8 2 8 8 2 8 8 8 . . . . 
+    . 8 8 8 8 2 8 8 2 8 8 8 8 . . . 
+    . d d 8 8 2 2 2 2 8 8 d d . . . 
+    . d d d 2 5 2 2 5 2 d d d . . . 
+    . d d 2 2 2 2 2 2 2 2 d d . . . 
+    . . . 2 2 2 . . 2 2 2 . . . . . 
+    . . e e e . . . . e e e . . . . 
+    . e e e e . . . . e e e e . . . 
+    `, SpriteKind.Player))
+mp.setPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two), sprites.create(img`
+    . . . . 3 3 3 3 3 . . . . . . . 
+    . . . 3 3 3 3 3 3 3 3 3 . . . . 
+    . . . f f f d d f d . . . . . . 
+    . . f d f d d d f d d d . . . . 
+    . . f d f f d d d f d d d . . . 
+    . . f f d d d d f f f f . . . . 
+    . . . . d d d d d d d . . . . . 
+    . . . 4 4 3 4 4 4 . . . . . . . 
+    . . 4 4 4 3 4 4 3 4 4 4 . . . . 
+    . 4 4 4 4 3 4 4 3 4 4 4 4 . . . 
+    . d d 4 4 3 3 3 3 4 4 d d . . . 
+    . d d d 3 5 3 3 5 3 d d d . . . 
+    . d d 3 3 3 3 3 3 3 3 d d . . . 
+    . . . 3 3 3 . . 3 3 3 . . . . . 
+    . . e e e . . . . e e e . . . . 
+    . e e e e . . . . e e e e . . . 
+    `, SpriteKind.Player))
 game.splash("welcome to my game")
 LifeReducedAtPlusOneSecond = game.runtime()
 tiles.setCurrentTilemap(tilemap`level1`)
@@ -280,14 +322,19 @@ monke = sprites.create(img`
     . f d d f d d f d d b e f f f f 
     . . f f f f f f f f f f f f f . 
     `, SpriteKind.Enemy)
-tiles.placeOnTile(monke, tiles.getTileLocation(57, 11))
+let mario_2 = mp.playerSelector(mp.PlayerNumber.Two)
 scene.cameraFollowSprite(mario)
+tiles.placeOnTile(monke, tiles.getTileLocation(57, 11))
 tiles.placeOnTile(mario, tiles.getTileLocation(3, 10))
 mario.ay = 300
 controller.moveSprite(mario, 100, 0)
+mp.moveWithButtons(mp.playerSelector(mp.PlayerNumber.Two), 100, 0)
 monke.setBounceOnWall(true)
 monke.setVelocity(70, 0)
 info.setLife(3)
+if (mp.isConnected(mp.playerSelector(mp.PlayerNumber.Two))) {
+	
+}
 game.onUpdate(function () {
     facing_right = 1
     mario.setImage(img`
