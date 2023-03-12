@@ -4,7 +4,8 @@
     "description": "",
     "dependencies": {
         "device": "*",
-        "multiplayer": "*"
+        "multiplayer": "*",
+        "arcade-split-screen": "github:riknoll/arcade-split-screen#c932ef6b9f21320f2b6307dc01c75bbd8179b278"
     },
     "files": [
         "main.blocks",
