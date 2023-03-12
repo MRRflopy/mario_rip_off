@@ -15,17 +15,6 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile1`, function (sprite, l
     tiles.placeOnTile(mario, tiles.getTileLocation(3, 14))
     tiles.placeOnTile(mario_2, tiles.getTileLocation(4, 14))
 })
-function p2_death () {
-    if (p2_LifeReducedAtPlusOneSecond < game.runtime()) {
-        p2_LifeReducedAtPlusOneSecond = game.runtime()
-        p2_LifeReducedAtPlusOneSecond += 1000
-        tiles.placeOnTile(mario_2, tiles.getTileLocation(3, 10))
-        info.player2.changeLifeBy(-1)
-        if (info.player2.life() == 1) {
-            already_running = 0
-        }
-    }
-}
 controller.player2.onButtonEvent(ControllerButton.B, ControllerButtonEvent.Pressed, function () {
 	
 })
@@ -68,6 +57,17 @@ sprites.onOverlap(SpriteKind.p2, SpriteKind.Enemy, function (sprite, otherSprite
         }
     }
 })
+function p1_death () {
+    if (p1_lifereducedatplussonesecond < game.runtime()) {
+        p1_lifereducedatplussonesecond = game.runtime()
+        p1_lifereducedatplussonesecond += 1000
+        tiles.placeOnTile(mario, tiles.getTileLocation(3, 10))
+        info.player1.changeLifeBy(-1)
+        if (info.player1.life() == 1) {
+            already_running = 0
+        }
+    }
+}
 controller.player2.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
     if (p2_fire_power == 1) {
         if (p2_facing_right == 1) {
@@ -219,13 +219,17 @@ controller.player2.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pres
             `)
     }
 })
-function p1_death () {
-    if (p1_lifereducedatplussonesecond < game.runtime()) {
-        p1_lifereducedatplussonesecond = game.runtime()
-        p1_lifereducedatplussonesecond += 1000
-        tiles.placeOnTile(mario, tiles.getTileLocation(3, 10))
-        info.player1.changeLifeBy(-1)
-        if (info.player1.life() == 1) {
+scene.onOverlapTile(SpriteKind.p2, sprites.dungeon.collectibleInsignia, function (sprite, location) {
+    tiles.placeOnTile(sprite, tiles.getTileLocation(6, 1))
+})
+function p2_death () {
+    control.enablePerfCounter()
+if (p2_LifeReducedAtPlusOneSecond < game.runtime()) {
+        p2_LifeReducedAtPlusOneSecond = game.runtime()
+        p2_LifeReducedAtPlusOneSecond += 1000
+        tiles.placeOnTile(mario_2, tiles.getTileLocation(3, 10))
+        info.player2.changeLifeBy(-1)
+        if (info.player2.life() == 1) {
             already_running = 0
         }
     }
