@@ -1,5 +1,7 @@
 namespace SpriteKind {
     export const p2 = SpriteKind.create()
+    export const coim = SpriteKind.create()
+    export const blok = SpriteKind.create()
 }
 scene.onOverlapTile(SpriteKind.p2, assets.tile`myTile1`, function (sprite, location) {
     game.splash("player 2 wins")
@@ -14,6 +16,11 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile1`, function (sprite, l
     tiles.setCurrentTilemap(tilemap`level2`)
     tiles.placeOnTile(mario, tiles.getTileLocation(3, 14))
     tiles.placeOnTile(mario_2, tiles.getTileLocation(4, 14))
+})
+scene.onHitWall(SpriteKind.Player, function (sprite, location) {
+    if (location == tiles.getTileLocation(20, 10)) {
+        info.player1.changeScoreBy(10000)
+    }
 })
 controller.player2.onButtonEvent(ControllerButton.B, ControllerButtonEvent.Pressed, function () {
 	
@@ -57,6 +64,11 @@ sprites.onOverlap(SpriteKind.p2, SpriteKind.Enemy, function (sprite, otherSprite
         }
     }
 })
+sprites.onOverlap(SpriteKind.Player, SpriteKind.blok, function (sprite, otherSprite) {
+    info.player1.changeScoreBy(2)
+    sprites.destroy(otherSprite)
+    music.play(music.melodyPlayable(music.bigCrash), music.PlaybackMode.UntilDone)
+})
 function p1_death () {
     if (p1_lifereducedatplussonesecond < game.runtime()) {
         p1_lifereducedatplussonesecond = game.runtime()
@@ -71,6 +83,7 @@ function p1_death () {
 controller.player2.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
     if (p2_fire_power == 1) {
         if (p2_facing_right == 1) {
+            music.play(music.melodyPlayable(music.smallCrash), music.PlaybackMode.InBackground)
             projectile = sprites.createProjectileFromSprite(img`
                 . . 2 2 2 2 . . 
                 . 2 2 4 4 2 2 . 
@@ -124,6 +137,7 @@ controller.player2.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Press
             true
             )
         } else {
+            music.play(music.melodyPlayable(music.smallCrash), music.PlaybackMode.InBackground)
             projectile = sprites.createProjectileFromSprite(img`
                 . . 2 2 2 2 . . 
                 . 2 2 4 4 2 2 . 
@@ -185,6 +199,11 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile4`, function (sprite, l
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile3`, function (sprite, location) {
     p1_death()
 })
+sprites.onOverlap(SpriteKind.p2, SpriteKind.blok, function (sprite, otherSprite) {
+    info.player2.changeScoreBy(2)
+    sprites.destroy(otherSprite)
+    music.play(music.melodyPlayable(music.bigCrash), music.PlaybackMode.UntilDone)
+})
 info.onCountdownEnd(function () {
     info.stopCountdown()
 })
@@ -192,6 +211,11 @@ scene.onOverlapTile(SpriteKind.p2, assets.tile`myTile10`, function (sprite, loca
     if (sprite.vy == 0) {
         sprite.vy = -200
     }
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.coim, function (sprite, otherSprite) {
+    info.player1.changeScoreBy(1)
+    sprites.destroy(otherSprite)
+    music.play(music.melodyPlayable(music.baDing), music.PlaybackMode.UntilDone)
 })
 scene.onOverlapTile(SpriteKind.p2, assets.tile`myTile4`, function (sprite, location) {
     p2_death()
@@ -235,8 +259,11 @@ if (p2_LifeReducedAtPlusOneSecond < game.runtime()) {
     }
 }
 scene.onOverlapTile(SpriteKind.p2, assets.tile`myTile11`, function (sprite, location) {
-    tiles.setTileAt(tiles.getTileLocation(21, 5), assets.tile`myTile6`)
-    p2_fire_power = 1
+    if (p2_fire_power == 0) {
+        tiles.setTileAt(location, assets.tile`myTile6`)
+        p2_fire_power = 1
+        music.play(music.melodyPlayable(music.powerUp), music.PlaybackMode.UntilDone)
+    }
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile2`, function (sprite, location) {
     controller.moveSprite(sprite, 150, 0)
@@ -247,6 +274,7 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile5`, function (sprite, l
 controller.player1.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
     if (fire_power == 1) {
         if (facing_right == 1) {
+            music.play(music.melodyPlayable(music.smallCrash), music.PlaybackMode.InBackground)
             projectile = sprites.createProjectileFromSprite(img`
                 . . 2 2 2 2 . . 
                 . 2 2 4 4 2 2 . 
@@ -300,6 +328,7 @@ controller.player1.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Press
             true
             )
         } else {
+            music.play(music.melodyPlayable(music.smallCrash), music.PlaybackMode.InBackground)
             projectile = sprites.createProjectileFromSprite(img`
                 . . 2 2 2 2 . . 
                 . 2 2 4 4 2 2 . 
@@ -355,6 +384,11 @@ controller.player1.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Press
         }
     }
 })
+sprites.onOverlap(SpriteKind.p2, SpriteKind.coim, function (sprite, otherSprite) {
+    info.player2.changeScoreBy(1)
+    sprites.destroy(otherSprite)
+    music.play(music.melodyPlayable(music.baDing), music.PlaybackMode.UntilDone)
+})
 scene.onOverlapTile(SpriteKind.p2, assets.tile`myTile5`, function (sprite, location) {
     p2_death()
 })
@@ -378,8 +412,11 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, oth
     pause(2000)
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile11`, function (sprite, location) {
-    tiles.setTileAt(tiles.getTileLocation(21, 5), assets.tile`myTile6`)
-    fire_power = 1
+    if (fire_power == 0) {
+        tiles.setTileAt(location, assets.tile`myTile6`)
+        fire_power = 1
+        music.play(music.melodyPlayable(music.powerUp), music.PlaybackMode.InBackground)
+    }
 })
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.collectibleInsignia, function (sprite, location) {
     tiles.placeOnTile(sprite, tiles.getTileLocation(6, 1))
@@ -404,6 +441,8 @@ let p2_facing_right = 0
 let p2_fire_power = 0
 let already_running = 0
 let time_to_beat_level_1 = 0
+let block: Sprite = null
+let coin: Sprite = null
 let mario_2: Sprite = null
 let mario: Sprite = null
 let p2_LifeReducedAtPlusOneSecond = 0
@@ -516,72 +555,52 @@ info.player1.setLife(3)
 info.player2.setLife(3)
 splitScreen.splitScreenCameraFollow(mario)
 splitScreen.splitScreenCameraFollow(mario_2)
-game.onUpdate(function () {
-    p2_facing_right = 1
-    mario_2.setImage(img`
-        . . . . 3 3 3 3 3 . . . . . . . 
-        . . . 3 3 3 3 3 3 3 3 3 . . . . 
-        . . . f f f d d f d . . . . . . 
-        . . f d f d d d f d d d . . . . 
-        . . f d f f d d d f d d d . . . 
-        . . f f d d d d f f f f . . . . 
-        . . . . d d d d d d d . . . . . 
-        . . . 4 4 3 4 4 4 . . . . . . . 
-        . . 4 4 4 3 4 4 3 4 4 4 . . . . 
-        . 4 4 4 4 3 4 4 3 4 4 4 4 . . . 
-        . d d 4 4 3 3 3 3 4 4 d d . . . 
-        . d d d 3 5 3 3 5 3 d d d . . . 
-        . d d 3 3 3 3 3 3 3 3 d d . . . 
-        . . . 3 3 3 . . 3 3 3 . . . . . 
-        . . e e e . . . . e e e . . . . 
-        . e e e e . . . . e e e e . . . 
-        `)
-    if (mario_2.vy < 0) {
-        mario_2.setImage(img`
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . 3 3 3 3 . . d d d . 
-            . . . . . 3 3 3 3 3 3 3 3 d d . 
-            . . . . e e e d d f d . 4 4 4 . 
-            . . . e d e d d d f d d d 4 4 . 
-            . . . e d e e d d d f d d d 4 . 
-            . . . e e d d d d f f f f 4 . . 
-            . . . . . d d d d d d d 4 4 . . 
-            . . 4 4 4 4 3 4 4 4 3 4 4 . . e 
-            d d 4 4 4 4 4 3 4 4 4 3 . . e e 
-            d d d 4 4 4 4 3 3 3 3 5 3 3 e e 
-            . d . . 3 4 3 3 5 3 3 3 3 3 e e 
-            . . e e e 3 3 3 3 3 3 3 3 3 e e 
-            . e e e 3 3 3 3 3 3 . . . . . . 
-            . e e . . . . . . . . . . . . . 
-            `)
-    } else if (mario_2.vy > 0) {
-        mario_2.setImage(img`
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . 3 3 3 3 . . d d d . 
-            . . . . . 3 3 3 3 3 3 3 3 d d . 
-            . . . . e e e d d f d . 4 4 4 . 
-            . . . e d e d d d f d d d 4 4 . 
-            . . . e d e e d d d f d d d 4 . 
-            . . . e e d d d d f f f f 4 . . 
-            . . . . . d d d d d d d 4 4 . . 
-            . . 4 4 4 4 3 4 4 4 3 4 4 . . e 
-            d d 4 4 4 4 4 3 4 4 4 3 . . e e 
-            d d d 4 4 4 4 3 3 3 3 5 3 3 e e 
-            . d . . 3 4 3 3 5 3 3 3 3 3 e e 
-            . . e e e 3 3 3 3 3 3 3 3 3 e e 
-            . e e e 3 3 3 3 3 3 . . . . . . 
-            . e e . . . . . . . . . . . . . 
-            `)
-    } else {
-    	
-    }
-    if (mario_2.vx < 0) {
-        p2_facing_right = 0
-        mario_2.image.flipX()
-    }
-})
+scene.setBackgroundColor(9)
+for (let value of tiles.getTilesByType(assets.tile`myTile14`)) {
+    coin = sprites.create(img`
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 f f f f f f f 9 9 9 9 
+        9 9 9 f f f 5 5 5 5 5 f f f 9 9 
+        9 9 f f 5 5 f f f f 5 5 5 f f 9 
+        9 9 f 5 5 5 5 5 5 5 5 5 5 5 f 9 
+        9 f f 5 5 5 5 5 5 5 5 5 5 5 f f 
+        9 f 5 5 f 5 5 5 5 5 5 5 5 5 5 f 
+        9 f 5 5 f 5 5 5 5 5 5 5 5 5 5 f 
+        9 f 5 5 f 5 5 5 5 5 5 5 5 5 5 f 
+        9 f 5 5 f 5 5 5 5 5 5 5 5 5 5 f 
+        9 f 5 5 f 5 5 5 5 5 5 5 5 5 5 f 
+        9 f f 5 f 5 5 5 5 5 5 5 5 5 f f 
+        9 9 f 5 5 5 5 5 5 5 5 5 5 5 f 9 
+        9 9 f f 5 5 5 5 5 5 5 5 5 f f 9 
+        9 9 9 f f f 5 5 5 5 5 f f f 9 9 
+        9 9 9 9 9 f f f f f f f 9 9 9 9 
+        `, SpriteKind.coim)
+    tiles.placeOnTile(coin, value)
+    tiles.setTileAt(value, assets.tile`transparency16`)
+}
+for (let value of tiles.getTilesByType(assets.tile`myTile17`)) {
+    block = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        5 1 5 5 5 5 5 5 5 1 5 5 5 5 5 5 
+        5 1 5 5 5 5 5 5 5 1 5 5 5 5 5 5 
+        5 1 5 5 5 5 5 5 5 1 5 5 5 5 5 5 
+        1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+        5 5 5 5 5 1 5 5 5 5 5 5 5 1 5 5 
+        5 5 5 5 5 1 5 5 5 5 5 5 5 1 5 5 
+        5 5 5 5 5 1 5 5 5 5 5 5 5 1 5 5 
+        1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+        5 1 5 5 5 5 5 5 5 1 5 5 5 5 5 5 
+        5 1 5 5 5 5 5 5 5 1 5 5 5 5 5 5 
+        5 1 5 5 5 5 5 5 5 1 5 5 5 5 5 5 
+        1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+        5 5 5 5 5 1 5 5 5 5 5 5 5 1 5 5 
+        5 5 5 5 5 1 5 5 5 5 5 5 5 1 5 5 
+        5 5 5 5 5 1 5 5 5 5 5 5 5 1 5 5 
+        1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        `, SpriteKind.blok)
+    tiles.placeOnTile(block, value)
+}
 game.onUpdate(function () {
     facing_right = 1
     mario.setImage(img`
@@ -646,6 +665,72 @@ game.onUpdate(function () {
     if (mario.vx < 0) {
         facing_right = 0
         mario.image.flipX()
+    }
+})
+game.onUpdate(function () {
+    p2_facing_right = 1
+    mario_2.setImage(img`
+        . . . . 3 3 3 3 3 . . . . . . . 
+        . . . 3 3 3 3 3 3 3 3 3 . . . . 
+        . . . f f f d d f d . . . . . . 
+        . . f d f d d d f d d d . . . . 
+        . . f d f f d d d f d d d . . . 
+        . . f f d d d d f f f f . . . . 
+        . . . . d d d d d d d . . . . . 
+        . . . 4 4 3 4 4 4 . . . . . . . 
+        . . 4 4 4 3 4 4 3 4 4 4 . . . . 
+        . 4 4 4 4 3 4 4 3 4 4 4 4 . . . 
+        . d d 4 4 3 3 3 3 4 4 d d . . . 
+        . d d d 3 5 3 3 5 3 d d d . . . 
+        . d d 3 3 3 3 3 3 3 3 d d . . . 
+        . . . 3 3 3 . . 3 3 3 . . . . . 
+        . . e e e . . . . e e e . . . . 
+        . e e e e . . . . e e e e . . . 
+        `)
+    if (mario_2.vy < 0) {
+        mario_2.setImage(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . 3 3 3 3 . . d d d . 
+            . . . . . 3 3 3 3 3 3 3 3 d d . 
+            . . . . e e e d d f d . 4 4 4 . 
+            . . . e d e d d d f d d d 4 4 . 
+            . . . e d e e d d d f d d d 4 . 
+            . . . e e d d d d f f f f 4 . . 
+            . . . . . d d d d d d d 4 4 . . 
+            . . 4 4 4 4 3 4 4 4 3 4 4 . . e 
+            d d 4 4 4 4 4 3 4 4 4 3 . . e e 
+            d d d 4 4 4 4 3 3 3 3 5 3 3 e e 
+            . d . . 3 4 3 3 5 3 3 3 3 3 e e 
+            . . e e e 3 3 3 3 3 3 3 3 3 e e 
+            . e e e 3 3 3 3 3 3 . . . . . . 
+            . e e . . . . . . . . . . . . . 
+            `)
+    } else if (mario_2.vy > 0) {
+        mario_2.setImage(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . 3 3 3 3 . . d d d . 
+            . . . . . 3 3 3 3 3 3 3 3 d d . 
+            . . . . e e e d d f d . 4 4 4 . 
+            . . . e d e d d d f d d d 4 4 . 
+            . . . e d e e d d d f d d d 4 . 
+            . . . e e d d d d f f f f 4 . . 
+            . . . . . d d d d d d d 4 4 . . 
+            . . 4 4 4 4 3 4 4 4 3 4 4 . . e 
+            d d 4 4 4 4 4 3 4 4 4 3 . . e e 
+            d d d 4 4 4 4 3 3 3 3 5 3 3 e e 
+            . d . . 3 4 3 3 5 3 3 3 3 3 e e 
+            . . e e e 3 3 3 3 3 3 3 3 3 e e 
+            . e e e 3 3 3 3 3 3 . . . . . . 
+            . e e . . . . . . . . . . . . . 
+            `)
+    } else {
+    	
+    }
+    if (mario_2.vx < 0) {
+        p2_facing_right = 0
+        mario_2.image.flipX()
     }
 })
 game.onUpdateInterval(1000, function () {
