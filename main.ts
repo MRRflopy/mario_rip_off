@@ -262,7 +262,7 @@ scene.onOverlapTile(SpriteKind.p2, assets.tile`myTile11`, function (sprite, loca
     if (p2_fire_power == 0) {
         tiles.setTileAt(location, assets.tile`myTile6`)
         p2_fire_power = 1
-        music.play(music.melodyPlayable(music.powerUp), music.PlaybackMode.UntilDone)
+        music.play(music.melodyPlayable(music.powerUp), music.PlaybackMode.InBackground)
     }
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile2`, function (sprite, location) {
