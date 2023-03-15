@@ -1,4 +1,4 @@
-// meta={"simUrl":"https://trg-arcade.userpxt.io/v1.12.25/---simulator","cdnUrl":"https://pxt.azureedge.net","version":"0.0.4","target":"arcade","targetVersion":"1.12.25","repo":"mrrflopy/mario_rip_off"}
+// meta={"simUrl":"https://trg-arcade.userpxt.io/v1.12.25/---simulator","cdnUrl":"https://pxt.azureedge.net","version":"0.0.5","target":"arcade","targetVersion":"1.12.25","repo":"mrrflopy/mario_rip_off"}
 // total=2090712 new=10.31% cached=84.93% other=4.77%
 (function (ectx) {
 'use strict';
@@ -3909,7 +3909,7 @@ switch (step) {
   case 6:
     r0 = s.retval;
     s.tmp_0.arg0 = r0;
-    s.tmp_0.arg1 = 0;
+    s.tmp_0.arg1 = 1;
     s.callLocIdx = 187; s.pc = 5; return s.tmp_0;
   case 5:
     r0 = s.retval;
@@ -3919,7 +3919,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-inline__P7635.info = {"start":9382,"length":235,"line":260,"column":58,"endLine":266,"endColumn":1,"fileName":"main.ts","functionName":"inline","argumentNames":["sprite","location"]}
+inline__P7635.info = {"start":9382,"length":238,"line":260,"column":58,"endLine":266,"endColumn":1,"fileName":"main.ts","functionName":"inline","argumentNames":["sprite","location"]}
 
 function inline__P7635_mk(s) {
     checkStack(s.depth);
@@ -3963,7 +3963,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-inline__P7653.info = {"start":9680,"length":73,"line":267,"column":61,"endLine":269,"endColumn":1,"fileName":"main.ts","functionName":"inline","argumentNames":["sprite","location"]}
+inline__P7653.info = {"start":9683,"length":73,"line":267,"column":61,"endLine":269,"endColumn":1,"fileName":"main.ts","functionName":"inline","argumentNames":["sprite","location"]}
 
 function inline__P7653_mk(s) {
     checkStack(s.depth);
@@ -4002,7 +4002,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-inline__P7662.info = {"start":9816,"length":46,"line":270,"column":61,"endLine":272,"endColumn":1,"fileName":"main.ts","functionName":"inline","argumentNames":["sprite","location"]}
+inline__P7662.info = {"start":9819,"length":46,"line":270,"column":61,"endLine":272,"endColumn":1,"fileName":"main.ts","functionName":"inline","argumentNames":["sprite","location"]}
 
 function inline__P7662_mk(s) {
     checkStack(s.depth);
@@ -4131,7 +4131,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-inline__P7670.info = {"start":9948,"length":3577,"line":273,"column":84,"endLine":385,"endColumn":1,"fileName":"main.ts","functionName":"inline","argumentNames":[]}
+inline__P7670.info = {"start":9951,"length":3577,"line":273,"column":84,"endLine":385,"endColumn":1,"fileName":"main.ts","functionName":"inline","argumentNames":[]}
 
 function inline__P7670_mk(s) {
     checkStack(s.depth);
@@ -4203,7 +4203,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-inline__P7722.info = {"start":13577,"length":182,"line":386,"column":50,"endLine":390,"endColumn":1,"fileName":"main.ts","functionName":"inline","argumentNames":["sprite","otherSprite"]}
+inline__P7722.info = {"start":13580,"length":182,"line":386,"column":50,"endLine":390,"endColumn":1,"fileName":"main.ts","functionName":"inline","argumentNames":["sprite","otherSprite"]}
 
 function inline__P7722_mk(s) {
     checkStack(s.depth);
@@ -4243,7 +4243,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-inline__P7739.info = {"start":13818,"length":46,"line":391,"column":57,"endLine":393,"endColumn":1,"fileName":"main.ts","functionName":"inline","argumentNames":["sprite","location"]}
+inline__P7739.info = {"start":13821,"length":46,"line":391,"column":57,"endLine":393,"endColumn":1,"fileName":"main.ts","functionName":"inline","argumentNames":["sprite","location"]}
 
 function inline__P7739_mk(s) {
     checkStack(s.depth);
@@ -4283,7 +4283,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-inline__P7745.info = {"start":13890,"length":80,"line":394,"column":24,"endLine":396,"endColumn":1,"fileName":"main.ts","functionName":"inline","argumentNames":[]}
+inline__P7745.info = {"start":13893,"length":80,"line":394,"column":24,"endLine":396,"endColumn":1,"fileName":"main.ts","functionName":"inline","argumentNames":[]}
 
 function inline__P7745_mk(s) {
     checkStack(s.depth);
@@ -4335,7 +4335,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-inline__P7753.info = {"start":14034,"length":88,"line":397,"column":62,"endLine":401,"endColumn":1,"fileName":"main.ts","functionName":"inline","argumentNames":["sprite","location"]}
+inline__P7753.info = {"start":14037,"length":88,"line":397,"column":62,"endLine":401,"endColumn":1,"fileName":"main.ts","functionName":"inline","argumentNames":["sprite","location"]}
 
 function inline__P7753_mk(s) {
     checkStack(s.depth);
@@ -4378,7 +4378,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-inline__P7765.info = {"start":14148,"length":80,"line":402,"column":24,"endLine":404,"endColumn":1,"fileName":"main.ts","functionName":"inline","argumentNames":[]}
+inline__P7765.info = {"start":14151,"length":80,"line":402,"column":24,"endLine":404,"endColumn":1,"fileName":"main.ts","functionName":"inline","argumentNames":[]}
 
 function inline__P7765_mk(s) {
     checkStack(s.depth);
@@ -4407,7 +4407,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-inline__P7773.info = {"start":14314,"length":17,"line":405,"column":84,"endLine":407,"endColumn":1,"fileName":"main.ts","functionName":"inline","argumentNames":[]}
+inline__P7773.info = {"start":14317,"length":17,"line":405,"column":84,"endLine":407,"endColumn":1,"fileName":"main.ts","functionName":"inline","argumentNames":[]}
 
 function inline__P7773_mk(s) {
     checkStack(s.depth);
@@ -4456,7 +4456,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-inline__P7777.info = {"start":14392,"length":130,"line":408,"column":59,"endLine":412,"endColumn":1,"fileName":"main.ts","functionName":"inline","argumentNames":["sprite","otherSprite"]}
+inline__P7777.info = {"start":14395,"length":130,"line":408,"column":59,"endLine":412,"endColumn":1,"fileName":"main.ts","functionName":"inline","argumentNames":["sprite","otherSprite"]}
 
 function inline__P7777_mk(s) {
     checkStack(s.depth);
@@ -4520,7 +4520,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-inline__P7790.info = {"start":14586,"length":232,"line":413,"column":62,"endLine":419,"endColumn":1,"fileName":"main.ts","functionName":"inline","argumentNames":["sprite","location"]}
+inline__P7790.info = {"start":14589,"length":232,"line":413,"column":62,"endLine":419,"endColumn":1,"fileName":"main.ts","functionName":"inline","argumentNames":["sprite","location"]}
 
 function inline__P7790_mk(s) {
     checkStack(s.depth);
@@ -4569,7 +4569,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-inline__P7807.info = {"start":14896,"length":90,"line":420,"column":76,"endLine":422,"endColumn":1,"fileName":"main.ts","functionName":"inline","argumentNames":["sprite","location"]}
+inline__P7807.info = {"start":14899,"length":90,"line":420,"column":76,"endLine":422,"endColumn":1,"fileName":"main.ts","functionName":"inline","argumentNames":["sprite","location"]}
 
 function inline__P7807_mk(s) {
     checkStack(s.depth);
@@ -4665,7 +4665,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-inline__P7816.info = {"start":15043,"length":333,"line":423,"column":55,"endLine":435,"endColumn":1,"fileName":"main.ts","functionName":"inline","argumentNames":["sprite","otherSprite"]}
+inline__P7816.info = {"start":15046,"length":333,"line":423,"column":55,"endLine":435,"endColumn":1,"fileName":"main.ts","functionName":"inline","argumentNames":["sprite","otherSprite"]}
 
 function inline__P7816_mk(s) {
     checkStack(s.depth);
@@ -4763,7 +4763,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-inline__P7946.info = {"start":21547,"length":2416,"line":603,"column":14,"endLine":668,"endColumn":1,"fileName":"main.ts","functionName":"inline","argumentNames":[]}
+inline__P7946.info = {"start":21550,"length":2416,"line":603,"column":14,"endLine":668,"endColumn":1,"fileName":"main.ts","functionName":"inline","argumentNames":[]}
 
 function inline__P7946_mk(s) {
     checkStack(s.depth);
@@ -4860,7 +4860,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-inline__P7975.info = {"start":23979,"length":2436,"line":669,"column":14,"endLine":734,"endColumn":1,"fileName":"main.ts","functionName":"inline","argumentNames":[]}
+inline__P7975.info = {"start":23982,"length":2436,"line":669,"column":14,"endLine":734,"endColumn":1,"fileName":"main.ts","functionName":"inline","argumentNames":[]}
 
 function inline__P7975_mk(s) {
     checkStack(s.depth);
@@ -4896,7 +4896,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-inline__P8004.info = {"start":26445,"length":45,"line":735,"column":28,"endLine":737,"endColumn":1,"fileName":"main.ts","functionName":"inline","argumentNames":[]}
+inline__P8004.info = {"start":26448,"length":45,"line":735,"column":28,"endLine":737,"endColumn":1,"fileName":"main.ts","functionName":"inline","argumentNames":[]}
 
 function inline__P8004_mk(s) {
     checkStack(s.depth);
@@ -4967,7 +4967,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-inline__P8010.info = {"start":26519,"length":4606,"line":738,"column":27,"endLine":850,"endColumn":1,"fileName":"main.ts","functionName":"inline","argumentNames":[]}
+inline__P8010.info = {"start":26522,"length":4606,"line":738,"column":27,"endLine":850,"endColumn":1,"fileName":"main.ts","functionName":"inline","argumentNames":[]}
 
 function inline__P8010_mk(s) {
     checkStack(s.depth);
@@ -5051,7 +5051,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-inline__P8034.info = {"start":31154,"length":4605,"line":851,"column":27,"endLine":963,"endColumn":1,"fileName":"main.ts","functionName":"inline","argumentNames":[]}
+inline__P8034.info = {"start":31157,"length":4605,"line":851,"column":27,"endLine":963,"endColumn":1,"fileName":"main.ts","functionName":"inline","argumentNames":[]}
 
 function inline__P8034_mk(s) {
     checkStack(s.depth);
