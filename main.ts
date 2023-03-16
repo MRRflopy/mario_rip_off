@@ -229,7 +229,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.coim, function (sprite, otherSpr
     music.play(music.melodyPlayable(music.baDing), music.PlaybackMode.UntilDone)
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.block_botto, function (sprite, otherSprite) {
-	
+    sprites.destroy(otherSprite)
 })
 scene.onOverlapTile(SpriteKind.p2, assets.tile`myTile4`, function (sprite, location) {
     p2_death()
@@ -261,10 +261,7 @@ scene.onOverlapTile(SpriteKind.p2, sprites.dungeon.collectibleInsignia, function
     tiles.placeOnTile(sprite, tiles.getTileLocation(6, 1))
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.mushroom, function (sprite, otherSprite) {
-    if (big == 0) {
-        big = 1
-        sprites.destroy(mushroom)
-    }
+	
 })
 function p2_death () {
     control.enablePerfCounter()
@@ -408,14 +405,12 @@ controller.player1.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Press
     }
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.big_block, function (sprite, otherSprite) {
-    info.player1.changeScoreBy(2)
     sprites.destroy(otherSprite)
-    music.play(music.melodyPlayable(music.bigCrash), music.PlaybackMode.UntilDone)
     tiles.placeOnTile(mushroom, tiles.getTileLocation(22, 8))
     mushroom.setVelocity(50, 0)
     mushroom.ay = 500
     mushroom.setBounceOnWall(false)
-    mushroom.setStayInScreen(true)
+    mushroom.setStayInScreen(false)
 })
 sprites.onOverlap(SpriteKind.p2, SpriteKind.coim, function (sprite, otherSprite) {
     info.player2.changeScoreBy(1)
@@ -469,17 +464,18 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
 })
 let facing_right = 0
 let fire_power = 0
-let big = 0
 let projectile: Sprite = null
 let p2_facing_right = 0
 let p2_fire_power = 0
 let already_running = 0
 let crouch = 0
 let time_to_beat_level_1 = 0
+let block_bottom: Sprite = null
 let botom_right_pipe: Sprite = null
 let botom_left_pipe: Sprite = null
 let top_right_pipe: Sprite = null
 let top_left_pipe: Sprite = null
+let power_block: Sprite = null
 let big_block: Sprite = null
 let coin: Sprite = null
 let mushroom: Sprite = null
@@ -616,22 +612,22 @@ mushroom = sprites.create(img`
 scene.setBackgroundColor(9)
 for (let value of tiles.getTilesByType(assets.tile`myTile14`)) {
     coin = sprites.create(img`
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 f f f f f f f 9 9 9 9 
-        9 9 9 f f f 5 5 5 5 5 f f f 9 9 
-        9 9 f f 5 5 f f f f 5 5 5 f f 9 
-        9 9 f 5 5 5 5 5 5 5 5 5 5 5 f 9 
-        9 f f 5 5 5 5 5 5 5 5 5 5 5 f f 
-        9 f 5 5 f 5 5 5 5 5 5 5 5 5 5 f 
-        9 f 5 5 f 5 5 5 5 5 5 5 5 5 5 f 
-        9 f 5 5 f 5 5 5 5 5 5 5 5 5 5 f 
-        9 f 5 5 f 5 5 5 5 5 5 5 5 5 5 f 
-        9 f 5 5 f 5 5 5 5 5 5 5 5 5 5 f 
-        9 f f 5 f 5 5 5 5 5 5 5 5 5 f f 
-        9 9 f 5 5 5 5 5 5 5 5 5 5 5 f 9 
-        9 9 f f 5 5 5 5 5 5 5 5 5 f f 9 
-        9 9 9 f f f 5 5 5 5 5 f f f 9 9 
-        9 9 9 9 9 f f f f f f f 9 9 9 9 
+        . . . . . . . . . . . . . . . . 
+        . . . . . f f f f f f f . . . . 
+        . . . f f f 5 5 5 5 5 f f f . . 
+        . . f f 5 5 f f f f 5 5 5 f f . 
+        . . f 5 5 5 5 5 5 5 5 5 5 5 f . 
+        . f f 5 5 5 5 5 5 5 5 5 5 5 f f 
+        . f 5 5 f 5 5 5 5 5 5 5 5 5 5 f 
+        . f 5 5 f 5 5 5 5 5 5 5 5 5 5 f 
+        . f 5 5 f 5 5 5 5 5 5 5 5 5 5 f 
+        . f 5 5 f 5 5 5 5 5 5 5 5 5 5 f 
+        . f 5 5 f 5 5 5 5 5 5 5 5 5 5 f 
+        . f f 5 f 5 5 5 5 5 5 5 5 5 f f 
+        . . f 5 5 5 5 5 5 5 5 5 5 5 f . 
+        . . f f 5 5 5 5 5 5 5 5 5 f f . 
+        . . . f f f 5 5 5 5 5 f f f . . 
+        . . . . . f f f f f f f . . . . 
         `, SpriteKind.coim)
     tiles.placeOnTile(coin, value)
     tiles.setTileAt(value, assets.tile`transparency16`)
@@ -659,8 +655,8 @@ for (let value of tiles.getTilesByType(assets.tile`myTile18`)) {
         `, SpriteKind.blok)
     tiles.placeOnTile(big_block, value)
 }
-for (let value of tiles.getTilesByType(assets.tile`myTile24`)) {
-    big_block = sprites.create(img`
+for (let value of tiles.getTilesByType(assets.tile`myTile26`)) {
+    power_block = sprites.create(img`
         . . . . . . . . . . . . . . . . 
         . f f f f f f f f f f f f f f . 
         f e e e e e e e e e e e e e e f 
@@ -680,7 +676,7 @@ for (let value of tiles.getTilesByType(assets.tile`myTile24`)) {
         . f f f f f f f f f f f f f f 9 
         9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
         `, SpriteKind.big_block)
-    tiles.placeOnTile(big_block, value)
+    tiles.placeOnTile(power_block, value)
 }
 for (let value of tiles.getTilesByType(assets.tile`myTile21`)) {
     top_left_pipe = sprites.create(img`
@@ -772,6 +768,30 @@ for (let value of tiles.getTilesByType(assets.tile`myTile20`)) {
         . . . . . f 7 7 7 7 7 7 7 7 7 7 
         `, SpriteKind.pipe_botom)
     tiles.placeOnTile(botom_right_pipe, value)
+    tiles.setTileAt(value, assets.tile`transparency16`)
+}
+for (let value of tiles.getTilesByType(assets.tile`myTile17`)) {
+    block_bottom = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        e f e e e e e e e f e e e e e e 
+        e f e e e e e e e f e e e e e e 
+        e f e e e e e e e f e e e e e e 
+        f f f f f f f f f f f f f f f f 
+        e e e e e f e e e e e e e f e e 
+        e e e e e f e e e e e e e f e e 
+        e e e e e f e e e e e e e f e e 
+        f f f f f f f f f f f f f f f f 
+        e f e e e e e e e f e e e e e e 
+        e f e e e e e e e f e e e e e e 
+        e f e e e e e e e f e e e e e e 
+        f f f f f f f f f f f f f f f f 
+        e e e e e f e e e e e e e f e e 
+        e e e e e f e e e e e e e f e e 
+        e e e e e f e e e e e e e f e e 
+        f f f f f f f f f f f f f f f f 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        `, SpriteKind.block_botto)
+    tiles.placeOnTile(block_bottom, value)
     tiles.setTileAt(value, assets.tile`transparency16`)
 }
 game.onUpdate(function () {
