@@ -578,25 +578,25 @@ for (let value of tiles.getTilesByType(assets.tile`myTile14`)) {
     tiles.placeOnTile(coin, value)
     tiles.setTileAt(value, assets.tile`transparency16`)
 }
-for (let value of tiles.getTilesByType(assets.tile`myTile17`)) {
+for (let value of tiles.getTilesByType(assets.tile`myTile18`)) {
     block = sprites.create(img`
         . . . . . . . . . . . . . . . . 
-        5 1 5 5 5 5 5 5 5 1 5 5 5 5 5 5 
-        5 1 5 5 5 5 5 5 5 1 5 5 5 5 5 5 
-        5 1 5 5 5 5 5 5 5 1 5 5 5 5 5 5 
-        1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
-        5 5 5 5 5 1 5 5 5 5 5 5 5 1 5 5 
-        5 5 5 5 5 1 5 5 5 5 5 5 5 1 5 5 
-        5 5 5 5 5 1 5 5 5 5 5 5 5 1 5 5 
-        1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
-        5 1 5 5 5 5 5 5 5 1 5 5 5 5 5 5 
-        5 1 5 5 5 5 5 5 5 1 5 5 5 5 5 5 
-        5 1 5 5 5 5 5 5 5 1 5 5 5 5 5 5 
-        1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
-        5 5 5 5 5 1 5 5 5 5 5 5 5 1 5 5 
-        5 5 5 5 5 1 5 5 5 5 5 5 5 1 5 5 
-        5 5 5 5 5 1 5 5 5 5 5 5 5 1 5 5 
-        1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+        . f f f f f f f f f f f f f f . 
+        f e e e e e e e e e e e e e e f 
+        f e f e e e e e e e e e e f e f 
+        f e e e e 4 4 4 4 4 e e e e e f 
+        f e e e 4 4 f f f 4 4 e e e e f 
+        f e e e 4 4 f e e 4 4 f e e e f 
+        f e e e 4 4 f e e 4 4 f e e e f 
+        f e e e e f f e 4 4 4 f e e e f 
+        f e e e e e e 4 4 f f f e e e f 
+        f e e e e e e 4 4 f e e e e e f 
+        f e e e e e e e f f e e e e e f 
+        f e e e e e e 4 4 e e e e e e f 
+        f e e e e e e 4 4 f e e e e e f 
+        f e f e e e e e f f e e e f e f 
+        f e e e e e e e e e e e e e e f 
+        . f f f f f f f f f f f f f f . 
         9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
         `, SpriteKind.blok)
     tiles.placeOnTile(block, value)
