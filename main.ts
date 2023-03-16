@@ -2,6 +2,11 @@ namespace SpriteKind {
     export const p2 = SpriteKind.create()
     export const coim = SpriteKind.create()
     export const blok = SpriteKind.create()
+    export const pipe_top = SpriteKind.create()
+    export const pipe_botom = SpriteKind.create()
+    export const big_block = SpriteKind.create()
+    export const mushroom = SpriteKind.create()
+    export const block_botto = SpriteKind.create()
 }
 scene.onOverlapTile(SpriteKind.p2, assets.tile`myTile1`, function (sprite, location) {
     game.splash("player 2 wins")
@@ -27,6 +32,12 @@ controller.player2.onButtonEvent(ControllerButton.B, ControllerButtonEvent.Press
 })
 scene.onOverlapTile(SpriteKind.p2, assets.tile`myTile3`, function (sprite, location) {
     p2_death()
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.pipe_top, function (sprite, otherSprite) {
+    if (crouch == 1) {
+        tiles.placeOnTile(mario, tiles.getTileLocation(8, 19))
+        crouch = 0
+    }
 })
 controller.player1.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pressed, function () {
     if (mario.vy == 0) {
@@ -217,6 +228,9 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.coim, function (sprite, otherSpr
     sprites.destroy(otherSprite)
     music.play(music.melodyPlayable(music.baDing), music.PlaybackMode.UntilDone)
 })
+sprites.onOverlap(SpriteKind.Player, SpriteKind.block_botto, function (sprite, otherSprite) {
+	
+})
 scene.onOverlapTile(SpriteKind.p2, assets.tile`myTile4`, function (sprite, location) {
     p2_death()
 })
@@ -246,6 +260,12 @@ controller.player2.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pres
 scene.onOverlapTile(SpriteKind.p2, sprites.dungeon.collectibleInsignia, function (sprite, location) {
     tiles.placeOnTile(sprite, tiles.getTileLocation(6, 1))
 })
+sprites.onOverlap(SpriteKind.Player, SpriteKind.mushroom, function (sprite, otherSprite) {
+    if (big == 0) {
+        big = 1
+        sprites.destroy(mushroom)
+    }
+})
 function p2_death () {
     control.enablePerfCounter()
 if (p2_LifeReducedAtPlusOneSecond < game.runtime()) {
@@ -264,6 +284,9 @@ scene.onOverlapTile(SpriteKind.p2, assets.tile`myTile11`, function (sprite, loca
         p2_fire_power = 1
         music.play(music.melodyPlayable(music.powerUp), music.PlaybackMode.InBackground)
     }
+})
+controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
+    crouch = 1
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile2`, function (sprite, location) {
     controller.moveSprite(sprite, 150, 0)
@@ -384,6 +407,16 @@ controller.player1.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Press
         }
     }
 })
+sprites.onOverlap(SpriteKind.Player, SpriteKind.big_block, function (sprite, otherSprite) {
+    info.player1.changeScoreBy(2)
+    sprites.destroy(otherSprite)
+    music.play(music.melodyPlayable(music.bigCrash), music.PlaybackMode.UntilDone)
+    tiles.placeOnTile(mushroom, tiles.getTileLocation(22, 8))
+    mushroom.setVelocity(50, 0)
+    mushroom.ay = 500
+    mushroom.setBounceOnWall(false)
+    mushroom.setStayInScreen(true)
+})
 sprites.onOverlap(SpriteKind.p2, SpriteKind.coim, function (sprite, otherSprite) {
     info.player2.changeScoreBy(1)
     sprites.destroy(otherSprite)
@@ -436,13 +469,20 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
 })
 let facing_right = 0
 let fire_power = 0
+let big = 0
 let projectile: Sprite = null
 let p2_facing_right = 0
 let p2_fire_power = 0
 let already_running = 0
+let crouch = 0
 let time_to_beat_level_1 = 0
-let block: Sprite = null
+let botom_right_pipe: Sprite = null
+let botom_left_pipe: Sprite = null
+let top_right_pipe: Sprite = null
+let top_left_pipe: Sprite = null
+let big_block: Sprite = null
 let coin: Sprite = null
+let mushroom: Sprite = null
 let mario_2: Sprite = null
 let mario: Sprite = null
 let p2_LifeReducedAtPlusOneSecond = 0
@@ -555,6 +595,24 @@ info.player1.setLife(3)
 info.player2.setLife(3)
 splitScreen.splitScreenCameraFollow(mario)
 splitScreen.splitScreenCameraFollow(mario_2)
+mushroom = sprites.create(img`
+    . . . . . . 4 4 4 4 . . . . . . 
+    . . . . . 4 4 4 4 2 2 . . . . . 
+    . . . . 4 4 4 4 2 2 2 2 . . . . 
+    . . . 4 4 4 4 4 2 2 2 2 2 . . . 
+    . . 4 4 4 4 4 4 4 2 2 2 4 4 . . 
+    . 4 4 2 2 2 4 4 4 4 4 4 4 4 4 . 
+    . 4 2 2 2 2 2 4 4 4 4 4 4 4 4 . 
+    4 4 2 2 2 2 2 4 4 4 4 4 2 2 4 4 
+    4 4 2 2 2 2 2 4 4 4 4 4 2 2 2 4 
+    4 4 4 2 2 2 4 4 4 4 4 4 4 2 2 4 
+    4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 
+    . 4 2 2 2 1 1 1 1 1 1 2 2 2 4 . 
+    . . . . 1 1 1 1 1 1 1 1 . . . . 
+    . . . . 1 1 1 1 1 1 1 1 . . . . 
+    . . . . 1 1 1 1 1 1 1 1 . . . . 
+    . . . . . 1 1 1 1 1 1 . . . . . 
+    `, SpriteKind.mushroom)
 scene.setBackgroundColor(9)
 for (let value of tiles.getTilesByType(assets.tile`myTile14`)) {
     coin = sprites.create(img`
@@ -579,7 +637,7 @@ for (let value of tiles.getTilesByType(assets.tile`myTile14`)) {
     tiles.setTileAt(value, assets.tile`transparency16`)
 }
 for (let value of tiles.getTilesByType(assets.tile`myTile18`)) {
-    block = sprites.create(img`
+    big_block = sprites.create(img`
         . . . . . . . . . . . . . . . . 
         . f f f f f f f f f f f f f f . 
         f e e e e e e e e e e e e e e f 
@@ -599,7 +657,122 @@ for (let value of tiles.getTilesByType(assets.tile`myTile18`)) {
         . f f f f f f f f f f f f f f . 
         9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
         `, SpriteKind.blok)
-    tiles.placeOnTile(block, value)
+    tiles.placeOnTile(big_block, value)
+}
+for (let value of tiles.getTilesByType(assets.tile`myTile24`)) {
+    big_block = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . f f f f f f f f f f f f f f . 
+        f e e e e e e e e e e e e e e f 
+        f e f e e e e e e e e e e f e f 
+        f e e e e 4 4 4 4 4 e e e e e f 
+        f e e e 4 4 f f f 4 4 e e e e f 
+        f e e e 4 4 f e e 4 4 f e e e f 
+        f e e e 4 4 f e e 4 4 f e e e f 
+        f e e e e f f e 4 4 4 f e e e f 
+        f e e e e e e 4 4 f f f e e e f 
+        f e e e e e e 4 4 f e e e e e f 
+        f e e e e e e e f f e e e e e f 
+        f e e e e e e 4 4 e e e e e e f 
+        f e e e e e e 4 4 f e e e e e f 
+        f e f e e e e e f f e e e f e f 
+        f e e e e e e e e e e e e e e f 
+        . f f f f f f f f f f f f f f 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        `, SpriteKind.big_block)
+    tiles.placeOnTile(big_block, value)
+}
+for (let value of tiles.getTilesByType(assets.tile`myTile21`)) {
+    top_left_pipe = sprites.create(img`
+        . . 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        . . 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        . . f f f f f f f f f f f f f f 
+        . . f 7 7 7 7 7 7 7 7 7 7 7 7 7 
+        . . f 7 7 7 7 7 7 7 7 7 7 7 7 7 
+        . . f 7 7 7 7 7 7 7 7 7 7 7 7 7 
+        . . f 7 7 7 7 7 7 7 7 7 7 7 7 7 
+        . . f 7 7 7 7 7 7 7 7 7 7 7 7 7 
+        . . f 7 7 7 7 7 7 7 7 7 7 7 7 7 
+        . . f 7 7 7 7 7 7 7 7 7 7 7 7 7 
+        . . f 7 7 7 7 7 7 7 7 7 7 7 7 7 
+        . . f 7 7 7 7 7 7 7 7 7 7 7 7 7 
+        . . f f f f f f f f f f f f f f 
+        . . . . . f 7 7 7 7 7 7 7 7 7 7 
+        . . . . . f 7 7 7 7 7 7 7 7 7 7 
+        . . . . . f 7 7 7 7 7 7 7 7 7 7 
+        . . . . . f 7 7 7 7 7 7 7 7 7 7 
+        . . . . . f 7 7 7 7 7 7 7 7 7 7 
+        `, SpriteKind.pipe_top)
+    tiles.placeOnTile(top_left_pipe, value)
+    tiles.setTileAt(value, assets.tile`transparency16`)
+}
+for (let value of tiles.getTilesByType(assets.tile`myTile22`)) {
+    top_right_pipe = sprites.create(img`
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 . 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 . . 
+        f f f f f f f f f f f f f f . . 
+        7 7 7 7 7 7 7 7 7 7 7 7 7 f . . 
+        7 7 7 7 7 7 7 7 7 7 7 7 7 f . . 
+        7 7 7 7 7 7 7 7 7 7 7 7 7 f . . 
+        7 7 7 7 7 7 7 7 7 7 7 7 7 f . . 
+        7 7 7 7 7 7 7 7 7 7 7 7 7 f . . 
+        7 7 7 7 7 7 7 7 7 7 7 7 7 f . . 
+        7 7 7 7 7 7 7 7 7 7 7 7 7 f . . 
+        7 7 7 7 7 7 7 7 7 7 7 7 7 f . . 
+        7 7 7 7 7 7 7 7 7 7 7 7 7 f . . 
+        f f f f f f f f f f f f f f . . 
+        7 7 7 7 7 7 7 7 7 7 f . . . . . 
+        7 7 7 7 7 7 7 7 7 7 f . . . . . 
+        7 7 7 7 7 7 7 7 7 7 f . . . . . 
+        7 7 7 7 7 7 7 7 7 7 f . . . . . 
+        7 7 7 7 7 7 7 7 7 7 f . . . . . 
+        `, SpriteKind.pipe_top)
+    tiles.placeOnTile(top_right_pipe, value)
+    tiles.setTileAt(value, assets.tile`transparency16`)
+}
+for (let value of tiles.getTilesByType(assets.tile`myTile23`)) {
+    botom_left_pipe = sprites.create(img`
+        7 7 7 7 7 7 7 7 7 7 f . . . . . 
+        7 7 7 7 7 7 7 7 7 7 f . . . . . 
+        7 7 7 7 7 7 7 7 7 7 f . . . . . 
+        7 7 7 7 7 7 7 7 7 7 f . . . . . 
+        7 7 7 7 7 7 7 7 7 7 f . . . . . 
+        7 7 7 7 7 7 7 7 7 7 f . . . . . 
+        7 7 7 7 7 7 7 7 7 7 f . . . . . 
+        7 7 7 7 7 7 7 7 7 7 f . . . . . 
+        7 7 7 7 7 7 7 7 7 7 f . . . . . 
+        7 7 7 7 7 7 7 7 7 7 f . . . . . 
+        7 7 7 7 7 7 7 7 7 7 f . . . . . 
+        7 7 7 7 7 7 7 7 7 7 f . . . . . 
+        7 7 7 7 7 7 7 7 7 7 f . . . . . 
+        7 7 7 7 7 7 7 7 7 7 f . . . . . 
+        7 7 7 7 7 7 7 7 7 7 f . . . . . 
+        7 7 7 7 7 7 7 7 7 7 f . . . . . 
+        `, SpriteKind.pipe_botom)
+    tiles.placeOnTile(botom_left_pipe, value)
+    tiles.setTileAt(value, assets.tile`transparency16`)
+}
+for (let value of tiles.getTilesByType(assets.tile`myTile20`)) {
+    botom_right_pipe = sprites.create(img`
+        . . . . . f 7 7 7 7 7 7 7 7 7 7 
+        . . . . . f 7 7 7 7 7 7 7 7 7 7 
+        . . . . . f 7 7 7 7 7 7 7 7 7 7 
+        . . . . . f 7 7 7 7 7 7 7 7 7 7 
+        . . . . . f 7 7 7 7 7 7 7 7 7 7 
+        . . . . . f 7 7 7 7 7 7 7 7 7 7 
+        . . . . . f 7 7 7 7 7 7 7 7 7 7 
+        . . . . . f 7 7 7 7 7 7 7 7 7 7 
+        . . . . . f 7 7 7 7 7 7 7 7 7 7 
+        . . . . . f 7 7 7 7 7 7 7 7 7 7 
+        . . . . . f 7 7 7 7 7 7 7 7 7 7 
+        . . . . . f 7 7 7 7 7 7 7 7 7 7 
+        . . . . . f 7 7 7 7 7 7 7 7 7 7 
+        . . . . . f 7 7 7 7 7 7 7 7 7 7 
+        . . . . . f 7 7 7 7 7 7 7 7 7 7 
+        . . . . . f 7 7 7 7 7 7 7 7 7 7 
+        `, SpriteKind.pipe_botom)
+    tiles.placeOnTile(botom_right_pipe, value)
+    tiles.setTileAt(value, assets.tile`transparency16`)
 }
 game.onUpdate(function () {
     facing_right = 1
@@ -731,6 +904,11 @@ game.onUpdate(function () {
     if (mario_2.vx < 0) {
         p2_facing_right = 0
         mario_2.image.flipX()
+    }
+})
+game.onUpdate(function () {
+    if (mushroom.vx == 0) {
+        mushroom.vx = -50
     }
 })
 game.onUpdateInterval(1000, function () {
@@ -961,4 +1139,7 @@ game.onUpdateInterval(100, function () {
         false
         )
     }
+})
+game.onUpdateInterval(200, function () {
+    crouch = 0
 })
