@@ -776,6 +776,10 @@ controller.player2.onButtonEvent(ControllerButton.B, ControllerButtonEvent.Press
 scene.onOverlapTile(SpriteKind.p2, assets.tile`myTile3`, function (sprite, location) {
     p2_death()
 })
+sprites.onOverlap(SpriteKind.Projectile, SpriteKind.piranha, function (sprite, otherSprite) {
+    sprites.destroy(otherSprite)
+    info.changeScoreBy(3)
+})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.monkeeee, function (sprite, otherSprite) {
     if (level2 == 1) {
         sprites.destroy(otherSprite)
@@ -793,7 +797,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.monkeeee, function (sprite, othe
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.pipe_top, function (sprite, otherSprite) {
     if (p1_crouch == 1) {
-        tiles.placeOnTile(mario, tiles.getTileLocation(8, 19))
+        tiles.placeOnTile(mario, tiles.getTileLocation(8, 1))
         p1_crouch = 0
     }
 })
@@ -1868,7 +1872,7 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.collectibleInsignia, func
 })
 sprites.onOverlap(SpriteKind.p2, SpriteKind.pipe_top, function (sprite, otherSprite) {
     if (p2crouch == 1) {
-        tiles.placeOnTile(mario_2, tiles.getTileLocation(8, 19))
+        tiles.placeOnTile(mario_2, tiles.getTileLocation(8, 1))
         p2crouch = 0
     }
 })
