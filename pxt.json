@@ -5,8 +5,7 @@
     "dependencies": {
         "device": "*",
         "multiplayer": "*",
-        "arcade-split-screen": "github:riknoll/arcade-split-screen#c932ef6b9f21320f2b6307dc01c75bbd8179b278",
-        "pxt-status-bar": "github:jwunderl/pxt-status-bar#v0.4.2"
+        "arcade-split-screen": "github:riknoll/arcade-split-screen#c932ef6b9f21320f2b6307dc01c75bbd8179b278"
     },
     "files": [
         "main.blocks",
@@ -26,5 +25,5 @@
     "supportedTargets": [
         "arcade"
     ],
-    "preferredEditor": "blocksprj"
+    "preferredEditor": "tsprj"
 }

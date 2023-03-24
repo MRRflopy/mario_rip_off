@@ -432,25 +432,25 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile1`, function (sprite, l
     }
     for (let value of tiles.getTilesByType(assets.tile`myTile29`)) {
         star_blockkkk = sprites.create(img`
-            . . . . . . . . . . . . . . . . 
-            . f f f f f f f f f f f f f f . 
-            f e e e e e e e e e e e e e e f 
-            f e f e e e e e e e e e e f e f 
-            f e e e e 4 4 4 4 4 e e e e e f 
-            f e e e 4 4 f f f 4 4 e e e e f 
-            f e e e 4 4 f e e 4 4 f e e e f 
-            f e e e 4 4 f e e 4 4 f e e e f 
-            f e e e e f f e 4 4 4 f e e e f 
-            f e e e e e e 4 4 f f f e e e f 
-            f e e e e e e 4 4 f e e e e e f 
-            f e e e e e e e f f e e e e e f 
-            f e e e e e e 4 4 e e e e e e f 
-            f e e e e e e 4 4 f e e e e e f 
-            f e f e e e e e f f e e e f e f 
-            f e e e e e e e e e e e e e e f 
-            . f f f f f f f f f f f f f f . 
-            . 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 
-            `, SpriteKind.STAR_BLOCK)
+            . . . . . . . . . . . . . . . .
+            . f f f f f f f f f f f f f f .
+            f e e e e e e e e e e e e e e f
+            f e f e e e e e e e e e e f e f
+            f e e e e 4 4 4 4 4 e e e e e f
+            f e e e 4 4 f f f 4 4 e e e e f
+            f e e e 4 4 f e e 4 4 f e e e f
+            f e e e 4 4 f e e 4 4 f e e e f
+            f e e e e f f e 4 4 4 f e e e f
+            f e e e e e e 4 4 f f f e e e f
+            f e e e e e e 4 4 f e e e e e f
+            f e e e e e e e f f e e e e e f
+            f e e e e e e 4 4 e e e e e e f
+            f e e e e e e 4 4 f e e e e e f
+            f e f e e e e e f f e e e f e f
+            f e e e e e e e e e e e e e e f
+            . f f f f f f f f f f f f f f .
+            . 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8
+        `, SpriteKind.STAR_BLOCK)
         tiles.placeOnTile(star_blockkkk, value)
         animation.runImageAnimation(
         star_blockkkk,
@@ -805,23 +805,23 @@ controller.player1.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pres
     if (mario.vy == 0) {
         mario.vy = -150
         mario.setImage(img`
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . 2 2 2 2 . . d d d . 
-            . . . . . 2 2 2 2 2 2 2 2 d d . 
-            . . . . e e e d d f d . 2 2 2 . 
-            . . . e d e d d d f d d d 2 2 . 
-            . . . e d e e d d d f d d d 2 . 
-            . . . e e d d d d f f f f 2 . . 
-            . . . . . d d d d d d d 2 2 . . 
-            . . 2 2 2 2 8 2 2 2 8 2 2 . . e 
-            d d 2 2 2 2 2 8 2 2 2 8 . . e e 
-            d d d 2 2 2 2 8 8 8 8 5 8 8 e e 
-            . d . . 8 2 8 8 5 8 8 8 8 8 e e 
-            . . e e e 8 8 8 8 8 8 8 8 8 e e 
-            . e e e 8 8 8 8 8 8 . . . . . . 
-            . e e . . . . . . . . . . . . . 
-            `)
+            . . . . . . . . . . . . . . . .
+            . . . . . . . . . . . . . . . .
+            . . . . . . 2 2 2 2 . . d d d .
+            . . . . . 2 2 2 2 2 2 2 2 d d .
+            . . . . e e e d d f d . 2 2 2 .
+            . . . e d e d d d f d d d 2 2 .
+            . . . e d e e d d d f d d d 2 .
+            . . . e e d d d d f f f f 2 . .
+            . . . . . d d d d d d d 2 2 . .
+            . . 2 2 2 2 8 2 2 2 8 2 2 . . e
+            d d 2 2 2 2 2 8 2 2 2 8 . . e e
+            d d d 2 2 2 2 8 8 8 8 5 8 8 e e
+            . d . . 8 2 8 8 5 8 8 8 8 8 e e
+            . . e e e 8 8 8 8 8 8 8 8 8 e e
+            . e e e 8 8 8 8 8 8 . . . . . .
+            . e e . . . . . . . . . . . . .
+        `)
     }
 })
 sprites.onOverlap(SpriteKind.p2, SpriteKind.Enemy, function (sprite, otherSprite) {
